@@ -3,7 +3,9 @@ mod macros;
 
 use std::io::{stdin, Read};
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+fn main() -> Result {
     let mut args = std::env::args().skip(1).take(2);
     let day = args.next().ok_or(Error("missing day"))?;
     let part = args.next().ok_or(Error("missing part"))?;
@@ -17,9 +19,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut input = String::new();
     stdin().read_to_string(&mut input)?;
 
-    func(input);
-
-    Ok(())
+    func(input)
 }
 
 struct Error(&'static str);
