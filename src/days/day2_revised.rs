@@ -12,7 +12,7 @@ fn parse(input: &str) -> anyhow::Result<Vec<(&str, u32)>> {
         .collect()
 }
 
-fn part1(input: String) -> anyhow::Result<()> {
+fn part1(input: &str) -> anyhow::Result<()> {
     let movements = parse(&input)?;
 
     let mut pos = (0, 0);
@@ -31,7 +31,7 @@ fn part1(input: String) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn part2(input: String) -> anyhow::Result<()> {
+fn part2(input: &str) -> anyhow::Result<()> {
     let movements = parse(&input)?;
 
     let mut aim = 0;

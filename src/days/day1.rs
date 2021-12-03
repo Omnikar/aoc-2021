@@ -1,4 +1,4 @@
-fn part1(input: String) -> anyhow::Result<()> {
+fn part1(input: &str) -> anyhow::Result<()> {
     let nums = input
         .trim()
         .split('\n')
@@ -18,7 +18,7 @@ fn part1(input: String) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn part2(input: String) -> anyhow::Result<()> {
+fn part2(input: &str) -> anyhow::Result<()> {
     let nums = input
         .trim()
         .split('\n')

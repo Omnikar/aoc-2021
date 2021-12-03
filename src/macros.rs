@@ -4,9 +4,9 @@ macro_rules! parts {
         ::lazy_static::lazy_static! {
             pub static ref PARTS: ::std::collections::HashMap<
                 &'static str,
-                fn(::std::string::String) -> ::anyhow::Result<()>,
+                fn(&str) -> ::anyhow::Result<()>,
             > = [
-                $((stringify!($part), $part as fn(::std::string::String) -> ::anyhow::Result<()>),)*
+                $((stringify!($part), $part as fn(&str) -> ::anyhow::Result<()>),)*
             ]
             .into_iter()
             .collect();
@@ -20,7 +20,7 @@ macro_rules! days {
         ::lazy_static::lazy_static! {
             pub static ref DAYS: ::std::collections::HashMap<
                 &'static str,
-                &'static ::std::collections::HashMap<&'static str, fn(::std::string::String) -> ::anyhow::Result<()>>,
+                &'static ::std::collections::HashMap<&'static str, fn(&str) -> ::anyhow::Result<()>>,
             > = [
                 $((stringify!($day), &*$day::PARTS),)*
             ]

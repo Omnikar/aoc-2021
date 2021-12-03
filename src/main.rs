@@ -18,5 +18,5 @@ fn main() -> anyhow::Result<()> {
     let mut input = String::new();
     stdin().read_to_string(&mut input)?;
 
-    func(input)
+    func(&input)
 }
