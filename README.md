@@ -19,7 +19,7 @@ by appending `_revised` to the day, e.g., `aoc-2021 day1_revised part1`.
 * [x] Day 2*
   * [x] Part 1
   * [x] Part 2
-* [x] Day 3
+* [x] Day 3*
   * [x] Part 1
   * [x] Part 2
 * [ ] Day 4
