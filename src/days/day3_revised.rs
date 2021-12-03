@@ -43,20 +43,16 @@ fn part2(input: &str) -> anyhow::Result<()> {
         let mut rating = 0;
         let mut new_nums = nums.clone();
         let mut i = digit_count;
-        loop {
-            if let Some(&n) = new_nums.first() {
-                rating = n;
-                if i == 0 {
-                    break;
-                }
-                i -= 1;
-                new_nums.retain(move |&n| n >> i & 1 == gamma >> i & 1);
-                gamma = calc_gamma(&new_nums, digit_count);
-                if invert {
-                    gamma = !gamma & (1 << digit_count) - 1;
-                }
-            } else {
+        while let Some(&n) = new_nums.first() {
+            rating = n;
+            if i == 0 {
                 break;
+            }
+            i -= 1;
+            new_nums.retain(move |&n| n >> i & 1 == gamma >> i & 1);
+            gamma = calc_gamma(&new_nums, digit_count);
+            if invert {
+                gamma = !gamma & (1 << digit_count) - 1;
             }
         }
         rating
