@@ -12,13 +12,15 @@ fn parse(input: &str) -> anyhow::Result<(Vec<u32>, u32)> {
 fn calc_gamma(nums: &[u32], digit_count: u32) -> u32 {
     let mut gamma = 0;
     for i in 0..digit_count {
-        gamma += (nums.iter().copied().map(|n| n >> i & 1).sum::<u32>() * 2 >= nums.len() as u32)
-            .then(|| 1u32)
-            .unwrap_or(0)
-            * 1
-            << i;
+        gamma += calc_gamma_digit(nums, i) * 1 << i;
     }
     gamma
+}
+
+fn calc_gamma_digit(nums: &[u32], digit: u32) -> u32 {
+    (nums.iter().copied().map(|n| n >> digit & 1).sum::<u32>() * 2 >= nums.len() as u32)
+        .then(|| 1u32)
+        .unwrap_or(0)
 }
 
 fn part1(input: &str) -> anyhow::Result<()> {
@@ -36,24 +38,21 @@ fn part2(input: &str) -> anyhow::Result<()> {
     let (nums, digit_count) = parse(input)?;
 
     let rating = |invert: bool| {
-        let mut gamma = calc_gamma(&nums, digit_count);
-        if invert {
-            gamma = !gamma & (1 << digit_count) - 1;
-        }
         let mut rating = 0;
         let mut new_nums = nums.clone();
         let mut i = digit_count;
+        let mut gamma_digit;
         while let Some(&n) = new_nums.first() {
             rating = n;
             if i == 0 {
                 break;
             }
             i -= 1;
-            new_nums.retain(move |&n| n >> i & 1 == gamma >> i & 1);
-            gamma = calc_gamma(&new_nums, digit_count);
+            gamma_digit = calc_gamma_digit(&new_nums, i);
             if invert {
-                gamma = !gamma & (1 << digit_count) - 1;
+                gamma_digit ^= 1;
             }
+            new_nums.retain(move |&n| n >> i & 1 == gamma_digit);
         }
         rating
     };
