@@ -41,17 +41,13 @@ fn part2(input: &str) -> anyhow::Result<()> {
         let mut rating = 0;
         let mut new_nums = nums.clone();
         let mut i = digit_count;
-        let mut gamma_digit;
         while let Some(&n) = new_nums.first() {
             rating = n;
             if i == 0 {
                 break;
             }
             i -= 1;
-            gamma_digit = calc_gamma_digit(&new_nums, i);
-            if invert {
-                gamma_digit ^= 1;
-            }
+            let gamma_digit = calc_gamma_digit(&new_nums, i) ^ invert as u32;
             new_nums.retain(move |&n| n >> i & 1 == gamma_digit);
         }
         rating
