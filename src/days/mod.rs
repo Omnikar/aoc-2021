@@ -1,6 +1,8 @@
 mod day1;
 mod day2;
+#[allow(clippy::precedence, clippy::identity_op)]
 mod day3;
+#[allow(clippy::redundant_closure, clippy::len_zero)]
 mod day4;
 
 mod day1_revised;

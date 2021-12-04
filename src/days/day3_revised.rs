@@ -12,7 +12,7 @@ fn parse(input: &str) -> anyhow::Result<(Vec<u32>, u32)> {
 fn calc_gamma(nums: &[u32], digit_count: u32) -> u32 {
     let mut gamma = 0;
     for i in 0..digit_count {
-        gamma += calc_gamma_digit(nums, i) * 1 << i;
+        gamma += calc_gamma_digit(nums, i) << i;
     }
     gamma
 }
@@ -27,7 +27,7 @@ fn part1(input: &str) -> anyhow::Result<()> {
     let (nums, digit_count) = parse(input)?;
 
     let gamma = calc_gamma(&nums, digit_count);
-    let epsilon = !gamma & (1 << digit_count) - 1;
+    let epsilon = !gamma & ((1 << digit_count) - 1);
 
     println!("{}", gamma * epsilon);
 

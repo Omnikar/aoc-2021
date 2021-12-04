@@ -13,7 +13,7 @@ fn parse(input: &str) -> anyhow::Result<Vec<(&str, u32)>> {
 }
 
 fn part1(input: &str) -> anyhow::Result<()> {
-    let movements = parse(&input)?;
+    let movements = parse(input)?;
 
     let mut pos = (0, 0);
 
@@ -32,7 +32,7 @@ fn part1(input: &str) -> anyhow::Result<()> {
 }
 
 fn part2(input: &str) -> anyhow::Result<()> {
-    let movements = parse(&input)?;
+    let movements = parse(input)?;
 
     let mut aim = 0;
     let mut pos = (0, 0);
