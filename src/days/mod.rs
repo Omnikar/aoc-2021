@@ -5,6 +5,7 @@ mod day3;
 #[allow(clippy::redundant_closure, clippy::len_zero)]
 mod day4;
 mod day5;
+mod day6;
 
 mod day1_revised;
 mod day2_revised;
@@ -16,6 +17,7 @@ crate::days!(
     day3
     day4
     day5
+    day6
 
     day1_revised
     day2_revised
