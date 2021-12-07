@@ -34,7 +34,7 @@ applied to some of the original solutions to disable the violated lints.
 * [x] Day 6
   * [x] Part 1
   * [x] Part 2
-* [x] Day 7
+* [x] Day 7*
   * [x] Part 1
   * [x] Part 2
 * [ ] Day 8
