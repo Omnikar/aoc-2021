@@ -13,7 +13,7 @@ where
     F1: Fn(u32) -> F2,
     F2: Fn(u32) -> u32,
 {
-    nums.sort();
+    nums.sort_unstable();
     (nums[0]..nums[nums.len() - 1])
         .map(|i| nums.iter().copied().map(f(i)).sum())
         .min()
