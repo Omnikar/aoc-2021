@@ -5,7 +5,7 @@ mod day3;
 #[allow(clippy::redundant_closure, clippy::len_zero)]
 mod day4;
 mod day5;
-#[allow(clippy::map_collect_result_unit)]
+#[allow(clippy::map_collect_result_unit, clippy::let_and_return)]
 mod day6;
 #[allow(clippy::stable_sort_primitive)]
 mod day7;

@@ -1,15 +1,16 @@
-fn parse(input: &str) -> anyhow::Result<[u64; 9]> {
+fn parse(input: &str) -> [u64; 9] {
     let mut fish = [0; 9];
     input
         .trim()
         .split(',')
         .map(|s| s.parse::<usize>().map(|n| fish[n] += 1))
-        .collect::<Result<(), _>>()?;
-    Ok(fish)
+        .collect::<Result<(), _>>()
+        .unwrap();
+    fish
 }
 
-fn simulate(input: &str, days: u32) -> anyhow::Result<u64> {
-    let mut fish = parse(input)?;
+fn simulate(input: &str, days: u32) -> u64 {
+    let mut fish = parse(input);
 
     for _ in 0..days {
         fish.rotate_left(1);
@@ -18,15 +19,15 @@ fn simulate(input: &str, days: u32) -> anyhow::Result<u64> {
 
     let total = fish.into_iter().sum();
 
-    Ok(total)
+    total
 }
 
-fn part1(input: &str) -> anyhow::Result<()> {
-    simulate(input, 80).map(|n| println!("{}", n))
+fn part1(input: &str) {
+    println!("{}", simulate(input, 80));
 }
 
-fn part2(input: &str) -> anyhow::Result<()> {
-    simulate(input, 256).map(|n| println!("{}", n))
+fn part2(input: &str) {
+    println!("{}", simulate(input, 256));
 }
 
 crate::parts!(part1 part2);

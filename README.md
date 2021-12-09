@@ -12,9 +12,11 @@ A star (*) next to a day means that there is a revised solution present, which w
 what I used to first solve the puzzle, but what I deem a better solution/implementation
 which I came up with after initially solving the puzzle. Revised solutions are accessible
 by appending `_revised` to the day, e.g., `aoc-2021 day1_revised part1`. All non-revised
-solutions are the exact original code, including `cargo clippy` violations, which will
-not be fixed outside of revised versions; as a result, there are `#[allow(…)]` attributes
-applied to some of the original solutions to disable the violated lints.
+solutions are the (almost) exact original code (some adjustments may have been made to the
+organization of the parts, which consequently minorly affected the code for the parts
+themselves), including `cargo clippy` violations, which will not be fixed outside of
+revised versions; as a result, there are `#[allow(…)]` attributes applied to some of the
+original solutions to disable the violated lints.
 
 * [x] Day 1*
   * [x] Part 1

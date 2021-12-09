@@ -1,9 +1,10 @@
-fn part1(input: &str) -> anyhow::Result<()> {
+fn part1(input: &str) {
     let nums = input
         .trim()
         .split('\n')
         .map(|s| s.parse::<u32>())
-        .collect::<Result<Vec<_>, _>>()?;
+        .collect::<Result<Vec<_>, _>>()
+        .unwrap();
 
     let (count, _) = nums.into_iter().fold((0, u32::MAX), |(count, prev), next| {
         if next > prev {
@@ -14,16 +15,15 @@ fn part1(input: &str) -> anyhow::Result<()> {
     });
 
     println!("{}", count);
-
-    Ok(())
 }
 
-fn part2(input: &str) -> anyhow::Result<()> {
+fn part2(input: &str) {
     let nums = input
         .trim()
         .split('\n')
         .map(|s| s.parse::<u32>())
-        .collect::<Result<Vec<_>, _>>()?;
+        .collect::<Result<Vec<_>, _>>()
+        .unwrap();
 
     let (count, _) = (0..nums.len() - 2)
         .map(|i| (nums[i], nums[i + 1], nums[i + 2]))
@@ -37,8 +37,6 @@ fn part2(input: &str) -> anyhow::Result<()> {
         });
 
     println!("{}", count);
-
-    Ok(())
 }
 
 crate::parts!(part1 part2);

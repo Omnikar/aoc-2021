@@ -1,29 +1,27 @@
-use anyhow::Context;
-
 enum Direction {
     Forward,
     Down,
     Up,
 }
 
-fn parse_direction(input: &str) -> anyhow::Result<(Direction, u32)> {
-    let parts = input.split_once(" ").context("missing space")?;
+fn parse_direction(input: &str) -> (Direction, u32) {
+    let parts = input.split_once(" ").expect("missing space");
     let direction = match parts.0 {
         "forward" => Direction::Forward,
         "down" => Direction::Down,
         "up" => Direction::Up,
-        _ => anyhow::bail!("invalid direction"),
+        _ => panic!("invalid direction"),
     };
-    let count = parts.1.parse()?;
-    Ok((direction, count))
+    let count = parts.1.parse().unwrap();
+    (direction, count)
 }
 
-fn parse(input: &str) -> anyhow::Result<Vec<(Direction, u32)>> {
+fn parse(input: &str) -> Vec<(Direction, u32)> {
     input.trim().split('\n').map(parse_direction).collect()
 }
 
-fn part1(input: &str) -> anyhow::Result<()> {
-    let movements = parse(input)?;
+fn part1(input: &str) {
+    let movements = parse(input);
 
     let mut pos = (0, 0);
 
@@ -34,12 +32,10 @@ fn part1(input: &str) -> anyhow::Result<()> {
     });
 
     println!("{}", pos.0 * pos.1);
-
-    Ok(())
 }
 
-fn part2(input: &str) -> anyhow::Result<()> {
-    let movements = parse(input)?;
+fn part2(input: &str) {
+    let movements = parse(input);
 
     let mut aim = 0;
     let mut pos = (0, 0);
@@ -54,8 +50,6 @@ fn part2(input: &str) -> anyhow::Result<()> {
     });
 
     println!("{}", pos.0 * pos.1);
-
-    Ok(())
 }
 
 crate::parts!(part1 part2);

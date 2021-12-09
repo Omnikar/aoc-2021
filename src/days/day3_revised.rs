@@ -1,12 +1,11 @@
-use anyhow::Context;
-
-fn parse(input: &str) -> anyhow::Result<(Vec<u32>, u32)> {
+fn parse(input: &str) -> (Vec<u32>, u32) {
     let mut lines = input.trim().lines().peekable();
-    let digit_count = lines.peek().context("expected at least 1 number")?.len() as u32;
+    let digit_count = lines.peek().expect("expected at least 1 number").len() as u32;
     let nums = lines
         .map(|s| u32::from_str_radix(s, 2))
-        .collect::<Result<Vec<_>, _>>()?;
-    Ok((nums, digit_count))
+        .collect::<Result<Vec<_>, _>>()
+        .unwrap();
+    (nums, digit_count)
 }
 
 fn calc_gamma(nums: &[u32], digit_count: u32) -> u32 {
@@ -23,19 +22,17 @@ fn calc_gamma_digit(nums: &[u32], digit: u32) -> u32 {
         .unwrap_or(0)
 }
 
-fn part1(input: &str) -> anyhow::Result<()> {
-    let (nums, digit_count) = parse(input)?;
+fn part1(input: &str) {
+    let (nums, digit_count) = parse(input);
 
     let gamma = calc_gamma(&nums, digit_count);
     let epsilon = !gamma & ((1 << digit_count) - 1);
 
     println!("{}", gamma * epsilon);
-
-    Ok(())
 }
 
-fn part2(input: &str) -> anyhow::Result<()> {
-    let (nums, digit_count) = parse(input)?;
+fn part2(input: &str) {
+    let (nums, digit_count) = parse(input);
 
     let rating = |invert: bool| {
         let mut rating = 0;
@@ -57,8 +54,6 @@ fn part2(input: &str) -> anyhow::Result<()> {
     let co2_scrub = rating(true);
 
     println!("{}", o2_gen * co2_scrub);
-
-    Ok(())
 }
 
 crate::parts!(part1 part2);

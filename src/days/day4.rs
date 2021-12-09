@@ -1,12 +1,10 @@
-use anyhow::Context;
-
 struct Board {
     nums: [u32; 25],
     marks: [bool; 25],
 }
 
 impl Board {
-    fn from_str(s: &str) -> anyhow::Result<Self> {
+    fn from_str(s: &str) -> Self {
         let mut nums = [0; 25];
         for (i, n) in s
             .trim()
@@ -14,12 +12,12 @@ impl Board {
             .map(|s| s.parse::<u32>())
             .enumerate()
         {
-            nums[i] = n?;
+            nums[i] = n.unwrap();
         }
-        Ok(Self {
+        Self {
             nums,
             marks: [false; 25],
-        })
+        }
     }
 
     fn find_bingo(&self) -> bool {
@@ -56,24 +54,23 @@ impl Board {
     }
 }
 
-fn parse(input: &str) -> anyhow::Result<(Vec<u32>, Vec<Board>)> {
+fn parse(input: &str) -> (Vec<u32>, Vec<Board>) {
     let mut sections = input.split("\n\n");
     let numbers = sections
         .next()
-        .context("numbers required")?
+        .expect("numbers required")
         .split(',')
         .map(|s| s.parse::<u32>())
-        .collect::<Result<Vec<_>, _>>()?;
+        .collect::<Result<Vec<_>, _>>()
+        .unwrap();
 
-    let boards = sections
-        .map(|s| Board::from_str(s))
-        .collect::<Result<Vec<_>, _>>()?;
+    let boards = sections.map(|s| Board::from_str(s)).collect::<Vec<_>>();
 
-    Ok((numbers, boards))
+    (numbers, boards)
 }
 
-fn part1(input: &str) -> anyhow::Result<()> {
-    let (numbers, mut boards) = parse(input)?;
+fn part1(input: &str) {
+    let (numbers, mut boards) = parse(input);
 
     let mut score = 0;
 
@@ -88,14 +85,12 @@ fn part1(input: &str) -> anyhow::Result<()> {
     }
 
     println!("{}", score);
-
-    Ok(())
 }
 
-fn part2(input: &str) -> anyhow::Result<()> {
+fn part2(input: &str) {
     use std::collections::HashSet;
 
-    let (numbers, mut boards) = parse(input)?;
+    let (numbers, mut boards) = parse(input);
 
     let mut remaining = (0..boards.len()).collect::<HashSet<_>>();
     let mut score = 0;
@@ -114,8 +109,6 @@ fn part2(input: &str) -> anyhow::Result<()> {
     }
 
     println!("{}", score);
-
-    Ok(())
 }
 
 crate::parts!(part1 part2);

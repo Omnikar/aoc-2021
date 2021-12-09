@@ -1,5 +1,3 @@
-use anyhow::Context;
-
 fn digit(display: u8) -> Option<u8> {
     match display {
         0b1110111 => Some(0),
@@ -16,7 +14,7 @@ fn digit(display: u8) -> Option<u8> {
     }
 }
 
-fn parse_display(s: &str) -> anyhow::Result<u8> {
+fn parse_display(s: &str) -> u8 {
     let mut num = 0;
     for c in s.trim().chars() {
         num += 1
@@ -28,44 +26,33 @@ fn parse_display(s: &str) -> anyhow::Result<u8> {
                 'e' => 4,
                 'f' => 5,
                 'g' => 6,
-                _ => anyhow::bail!("invalid character"),
+                _ => panic!("invalid character"),
             };
     }
-    Ok(num)
+    num
 }
 
-fn parse(input: &str) -> anyhow::Result<Vec<([u8; 10], [u8; 4])>> {
+fn parse(input: &str) -> Vec<([u8; 10], [u8; 4])> {
     input
         .trim()
         .lines()
         .map(|l| {
-            l.split_once('|')
-                .context("invalid entry")
-                .map(|(dig_s, out_s)| {
-                    (
-                        dig_s.trim().split(' ').map(parse_display),
-                        out_s.trim().split(' ').map(parse_display),
-                    )
-                })
-                .map(|(dig_iter, out_iter)| {
-                    let mut digits = [0; 10];
-                    let mut output = [0; 4];
-                    digits
-                        .iter_mut()
-                        .zip(dig_iter)
-                        .for_each(|d| drop(d.1.map(|d1| *d.0 = d1)));
-                    output
-                        .iter_mut()
-                        .zip(out_iter)
-                        .for_each(|o| drop(o.1.map(|o1| *o.0 = o1)));
-                    (digits, output)
-                })
+            let (dig_s, out_s) = l.split_once('|').expect("invalid entry");
+            let (dig_iter, out_iter) = (
+                dig_s.trim().split(' ').map(parse_display),
+                out_s.trim().split(' ').map(parse_display),
+            );
+            let mut digits = [0; 10];
+            let mut output = [0; 4];
+            digits.iter_mut().zip(dig_iter).for_each(|d| *d.0 = d.1);
+            output.iter_mut().zip(out_iter).for_each(|o| *o.0 = o.1);
+            (digits, output)
         })
-        .collect::<Result<Vec<_>, _>>()
+        .collect()
 }
 
-fn part1(input: &str) -> anyhow::Result<()> {
-    let entries = parse(input)?;
+fn part1(input: &str) {
+    let entries = parse(input);
 
     let unique_counts = entries
         .into_iter()
@@ -78,12 +65,10 @@ fn part1(input: &str) -> anyhow::Result<()> {
         .count();
 
     println!("{}", unique_counts);
-
-    Ok(())
 }
 
-fn part2(input: &str) -> anyhow::Result<()> {
-    let entries = parse(input)?;
+fn part2(input: &str) {
+    let entries = parse(input);
 
     let mut total = 0;
 
@@ -130,7 +115,7 @@ fn part2(input: &str) -> anyhow::Result<()> {
 
         for n in possible {
             if n.count_ones() != 1 {
-                anyhow::bail!("unable to determine configuration");
+                panic!("unable to determine configuration");
             }
         }
 
@@ -149,17 +134,13 @@ fn part2(input: &str) -> anyhow::Result<()> {
             .rev()
             .enumerate()
             .map(|(i, n)| {
-                digit(reconfigure(n))
-                    .context("invalid digit")
-                    .map(|n| n as u32 * 10u32.pow(i as u32))
+                digit(reconfigure(n)).expect("invalid digit") as u32 * 10u32.pow(i as u32)
             })
-            .sum::<Result<u32, _>>()?;
+            .sum::<u32>();
         total += output;
     }
 
     println!("{}", total);
-
-    Ok(())
 }
 
 crate::parts!(part1 part2);

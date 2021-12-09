@@ -1,19 +1,16 @@
-use anyhow::Context;
-
-fn parse(input: &str) -> anyhow::Result<Vec<(&str, u32)>> {
+fn parse(input: &str) -> Vec<(&str, u32)> {
     input
         .trim()
         .split('\n')
         .map(|s| {
-            s.split_once(" ")
-                .context("missing space")
-                .and_then(|(dir, n)| n.parse::<u32>().map_err(|e| e.into()).map(|n| (dir, n)))
+            let (dir, n) = s.split_once(" ").expect("missing space");
+            n.parse::<u32>().map(|n| (dir, n)).unwrap()
         })
         .collect()
 }
 
-fn part1(input: &str) -> anyhow::Result<()> {
-    let movements = parse(input)?;
+fn part1(input: &str) {
+    let movements = parse(input);
 
     let mut pos = (0, 0);
 
@@ -22,17 +19,15 @@ fn part1(input: &str) -> anyhow::Result<()> {
             "forward" => pos.0 += n,
             "down" => pos.1 += n,
             "up" => pos.1 -= n,
-            _ => anyhow::bail!("invalid direction"),
+            _ => panic!("invalid direction"),
         }
     }
 
     println!("{}", pos.0 * pos.1);
-
-    Ok(())
 }
 
-fn part2(input: &str) -> anyhow::Result<()> {
-    let movements = parse(input)?;
+fn part2(input: &str) {
+    let movements = parse(input);
 
     let mut aim = 0;
     let mut pos = (0, 0);
@@ -45,13 +40,11 @@ fn part2(input: &str) -> anyhow::Result<()> {
             }
             "down" => aim += n,
             "up" => aim -= n,
-            _ => anyhow::bail!("invalid direction"),
+            _ => panic!("invalid direction"),
         }
     }
 
     println!("{}", pos.0 * pos.1);
-
-    Ok(())
 }
 
 crate::parts!(part1 part2);
