@@ -10,6 +10,7 @@ mod day6;
 #[allow(clippy::stable_sort_primitive)]
 mod day7;
 mod day8;
+mod day9;
 
 mod day1_revised;
 mod day2_revised;
@@ -25,6 +26,7 @@ crate::days!(
     day6
     day7
     day8
+    day9
 
     day1_revised
     day2_revised
