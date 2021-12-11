@@ -13,6 +13,7 @@ mod day8;
 mod day9;
 
 mod day10;
+mod day11;
 
 mod day1_revised;
 mod day2_revised;
@@ -30,6 +31,7 @@ crate::days!(
     day8
     day9
     day10
+    day11
 
     day1_revised
     day2_revised
