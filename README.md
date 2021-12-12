@@ -53,7 +53,7 @@ original solutions to disable the violated lints.
 * [x] Day 11
   * [x] Part 1
   * [x] Part 2
-* [x] Day 12
+* [x] Day 12*
   * [x] Part 1
   * [x] Part 2
 * [ ] Day 13
