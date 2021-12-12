@@ -20,40 +20,40 @@ themselves), including `cargo clippy` violations, which will not be fixed outsid
 revised versions; as a result, there are `#[allow(…)]` attributes applied to some of the
 original solutions to disable the violated lints.
 
-* [x] Day 1*
+* [x] [Day 1](src/days/day1.rs)[*](src/days/day1_revised.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 2*
+* [x] [Day 2](src/days/day2.rs)[*](src/days/day2_revised.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 3*
+* [x] [Day 3](src/days/day3.rs)[*](src/days/day3_revised.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 4
+* [x] [Day 4](src/days/day4.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 5
+* [x] [Day 5](src/days/day5.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 6
+* [x] [Day 6](src/days/day6.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 7*
+* [x] [Day 7](src/days/day7.rs)[*](src/days/day7_revised.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 8
+* [x] [Day 8](src/days/day8.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 9
+* [x] [Day 9](src/days/day9.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 10
+* [x] [Day 10](src/days/day10.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 11
+* [x] [Day 11](src/days/day11.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 12*
+* [x] [Day 12](src/days/day12.rs)[*](src/days/day12_revised.rs)
   * [x] Part 1
   * [x] Part 2
 * [ ] Day 13
