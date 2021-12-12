@@ -4,7 +4,11 @@ mod macros;
 use std::io::{stdin, Read};
 
 fn main() {
-    let mut args = std::env::args().skip(1).take(2);
+    let mut args = std::env::args().skip(1).peekable();
+    let time = args.peek().map(String::as_ref) == Some("--time");
+    if time {
+        args.next();
+    }
     let day = args.next().expect("missing day");
     let part = args.next().expect("missing part");
 
@@ -17,5 +21,11 @@ fn main() {
     let mut input = String::new();
     stdin().read_to_string(&mut input).unwrap();
 
+    let start = std::time::Instant::now();
     func(&input);
+    let end = std::time::Instant::now();
+    let elapsed = end - start;
+    if time {
+        println!("took {}μs", elapsed.as_micros());
+    }
 }

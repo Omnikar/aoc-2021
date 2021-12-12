@@ -7,6 +7,8 @@ To run a solution: `aoc-2021 <day> <part>` e.g. `aoc-2021 day1 part1`
 
 Puzzle input is accepted through stdin, and result is written to stdout.
 
+Add `--time` as the first argument to have the calculation time outputted in μs.
+
 ### Currently completed puzzles
 A star (*) next to a day means that there is a revised solution present, which was not
 what I used to first solve the puzzle, but what I deem a better solution/implementation
