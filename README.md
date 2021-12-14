@@ -56,7 +56,7 @@ original solutions to disable the violated lints.
 * [x] [Day 12](src/days/day12.rs)[*](src/days/day12_revised.rs)
   * [x] Part 1
   * [x] Part 2
-* [x] Day 13
+* [x] [Day 13](src/days/day13.rs)
   * [x] Part 1
   * [x] Part 2
 * [ ] Day 14
