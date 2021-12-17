@@ -1,13 +1,13 @@
 #[derive(Debug)]
 struct Packet {
-    vers: u32,
-    t_id: u32,
+    vers: u64,
+    t_id: u64,
     content: Content,
 }
 
 #[derive(Debug)]
 enum Content {
-    Literal(u32),
+    Literal(u64),
     Operator(Vec<Packet>),
 }
 
@@ -16,13 +16,13 @@ impl Packet {
         let mut bits = s
             .trim()
             .chars()
-            .map(|c| c.to_digit(16).unwrap() as u32)
+            .map(|c| c.to_digit(16).unwrap() as u64)
             .flat_map(|n| (0..4).rev().map(move |i| ((n >> i) & 1) == 1));
         Self::from_iter(&mut bits)
     }
 
     fn from_iter(iter: &mut impl Iterator<Item = bool>) -> Self {
-        let vers = mk_num(iter, 3) as u32;
+        let vers = mk_num(iter, 3);
         let t_id = mk_num(iter, 3);
         if t_id == 4 {
             let mut num = 0;
@@ -41,7 +41,7 @@ impl Packet {
         Self {
             vers,
             t_id,
-            content: Content::Operator(if iter.next().unwrap_or_default() {
+            content: Content::Operator(if iter.next().unwrap() {
                 let n_subs = mk_num(iter, 11);
                 let mut subs = Vec::new();
                 for _ in 0..n_subs {
@@ -60,18 +60,18 @@ impl Packet {
         }
     }
 
-    fn sum_vers(&self) -> u32 {
+    fn sum_vers(&self) -> u64 {
         match &self.content {
             Content::Literal(_) => self.vers,
             Content::Operator(packets) => {
-                self.vers + packets.iter().map(|p| p.sum_vers()).sum::<u32>()
+                self.vers + packets.iter().map(|p| p.sum_vers()).sum::<u64>()
             }
         }
     }
 
     fn value(&self) -> u64 {
         let mut subs = match &self.content {
-            Content::Literal(n) => return *n as u64,
+            Content::Literal(n) => return *n,
             Content::Operator(subs) => subs,
         }
         .iter()
@@ -89,21 +89,20 @@ impl Packet {
     }
 }
 
-fn mk_num(iter: &mut impl Iterator<Item = bool>, bits: u32) -> u32 {
+fn mk_num(iter: &mut impl Iterator<Item = bool>, bits: u64) -> u64 {
     (0..bits)
         .rev()
         .zip(iter)
-        .map(|(shft, n)| (n as u32) << shft)
+        .map(|(shft, n)| (n as u64) << shft)
         .sum()
 }
 
 fn part1(input: &str) {
     let packet = Packet::from_str(input);
+    println!("{:?}", packet);
     println!("{}", packet.sum_vers());
 }
 
-// For some reason, the part 2 implementation passes all the examples
-// but fails my actual input.
 fn part2(input: &str) {
     let packet = Packet::from_str(input);
     println!("{}", packet.value());
