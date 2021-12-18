@@ -99,7 +99,6 @@ fn mk_num(iter: &mut impl Iterator<Item = bool>, bits: u64) -> u64 {
 
 fn part1(input: &str) {
     let packet = Packet::from_str(input);
-    println!("{:?}", packet);
     println!("{}", packet.sum_vers());
 }
 
