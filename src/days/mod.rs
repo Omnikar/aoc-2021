@@ -16,7 +16,9 @@ mod day10;
 mod day11;
 mod day12;
 mod day13;
+#[allow(clippy::redundant_closure)]
 mod day14;
+#[allow(clippy::stable_sort_primitive)]
 mod day15;
 mod day16;
 mod day18;
