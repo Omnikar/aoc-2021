@@ -77,9 +77,9 @@ original solutions to disable the violated lints.
 * [ ] Day 19
   * [ ] Part 1
   * [ ] Part 2
-* [ ] Day 20
-  * [ ] Part 1
-  * [ ] Part 2
+* [x] [Day 20](src/days/day20.rs)
+  * [x] Part 1
+  * [x] Part 2
 * [ ] Day 21
   * [ ] Part 1
   * [ ] Part 2
