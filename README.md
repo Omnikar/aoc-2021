@@ -92,6 +92,6 @@ original solutions to disable the violated lints.
 * [ ] Day 24
   * [ ] Part 1
   * [ ] Part 2
-* [ ] Day 25
-  * [ ] Part 1
+* [ ] [Day 25](src/days/day25.rs)
+  * [x] Part 1
   * [ ] Part 2
